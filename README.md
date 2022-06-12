@@ -1,0 +1,1 @@
+# ssd2122kisk12komplikevychostap09
