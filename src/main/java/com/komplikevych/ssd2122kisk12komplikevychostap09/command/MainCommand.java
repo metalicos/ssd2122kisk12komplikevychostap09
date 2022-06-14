@@ -2,6 +2,7 @@ package com.komplikevych.ssd2122kisk12komplikevychostap09.command;
 
 import com.komplikevych.ssd2122kisk12komplikevychostap09.dto.SequenceDto;
 import com.komplikevych.ssd2122kisk12komplikevychostap09.service.IniFileService;
+import com.komplikevych.ssd2122kisk12komplikevychostap09.service.SequenceGenerationService;
 import com.komplikevych.ssd2122kisk12komplikevychostap09.util.ValidationUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import static java.util.Objects.isNull;
 public class MainCommand implements Callable<Integer> {
 
     private final IniFileService iniFileService;
+    private final SequenceGenerationService sequenceGenerationService;
 
     @CommandLine.Option(names = {"-sf", "--seqfile"}, description = "Path to sequence file")
     private String sequenceFilePath;
@@ -38,16 +40,21 @@ public class MainCommand implements Callable<Integer> {
                 .orElse(new SequenceDto(sequenceFormula, sequenceNumber));
         try {
             ValidationUtils.allNull(sequenceFilePath, sequenceFormula, sequenceNumber);
-            if (isNull(sequenceFilePath)){
+            if (isNull(sequenceFilePath)) {
                 ValidationUtils.manualInput(sequenceFormula, sequenceNumber);
             }
         } catch (Exception exception) {
-            log.error("Validation error ",exception);
+            log.error("Validation error ", exception);
             return 1;
         }
         log.info("Executing program\n\n");
         log.info("Formula={}", sequenceDto.getFormula());
         log.info("Sequence number={}", sequenceDto.getNumber());
+
+        log.info("Generating sequence");
+        var generatedSequence = sequenceGenerationService.generateSequence(sequenceDto.getFormula(), sequenceDto.getNumber());
+        log.info("Saving sequence");
+        sequenceGenerationService.saveSequence(generatedSequence);
         return 0;
     }
 }

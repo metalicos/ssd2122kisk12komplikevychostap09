@@ -2,6 +2,7 @@ package com.komplikevych.ssd2122kisk12komplikevychostap09.command;
 
 import com.komplikevych.ssd2122kisk12komplikevychostap09.dto.SequenceDto;
 import com.komplikevych.ssd2122kisk12komplikevychostap09.service.IniFileService;
+import com.komplikevych.ssd2122kisk12komplikevychostap09.service.SequenceGenerationService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -24,11 +25,13 @@ class MainCommandTest {
     public static final int NUMBER = 16;
     private MainCommand mainCommand;
     private IniFileService iniFileService;
+    private SequenceGenerationService sequenceGenerationService;
 
     @BeforeEach
     void setUp() {
         iniFileService = mock(IniFileService.class);
-        mainCommand = new MainCommand(iniFileService);
+        sequenceGenerationService = mock(SequenceGenerationService.class);
+        mainCommand = new MainCommand(iniFileService, sequenceGenerationService);
     }
 
     @Test

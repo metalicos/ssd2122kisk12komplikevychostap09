@@ -36,9 +36,4 @@ public class Ssd2122kisk12komplikevychostap09Application implements CommandLineR
     public int getExitCode() {
         return exitCode;
     }
-
-    @Bean
-    Wini getWini() throws IOException {
-        return new Wini(new File("sequencefile.ini"));
-    }
 }

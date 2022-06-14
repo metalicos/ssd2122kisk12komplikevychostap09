@@ -4,9 +4,9 @@
 
 ### Task details:
 ```
-Task 3. Load SF (BEF):
-1. Implement SF load and parse.
-2. The tool should show the loaded sequence and element number.
+Task 4. Save sequence (BEF):
+1. Implement sequence generation.
+2. Implement saving.
 3. Required steps.
 ```
 ### USER GUIDE:
