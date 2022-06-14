@@ -18,7 +18,7 @@ import static java.util.Objects.isNull;
 @CommandLine.Command(
         name = "mainCommand",
         mixinStandardHelpOptions = true,
-        helpCommand = true, version = "0.0.1")
+        helpCommand = true, version = "0.0.2")
 @RequiredArgsConstructor
 public class MainCommand implements Callable<Integer> {
 

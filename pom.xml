@@ -7,7 +7,7 @@
 	<description>NULP project</description>
 	<groupId>com.komplikevych</groupId>
 	<artifactId>ssd2122kisk12komplikevychostap09</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
