@@ -42,6 +42,7 @@ pipeline {
                 echo "=============================== STARTING EXECUTE ====================================="
                 script {
                     bat """
+                    xcopy config target\\config /i /e
                     cd target
                     java -jar seq.jar --sequence="(4*x*x*x)+((3/4)*x*x)+(2*x)-11" --number=44
                     """
