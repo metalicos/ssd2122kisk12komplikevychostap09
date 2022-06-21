@@ -12,6 +12,6 @@ public class AppConfig {
 
     @Bean
     Wini getWini() throws IOException {
-        return new Wini(new File("JAR/sequencefile.ini"));
+        return new Wini(new File("config/sequencefile.ini"));
     }
 }

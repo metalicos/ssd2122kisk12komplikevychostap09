@@ -26,13 +26,13 @@ public class MainCommand implements Callable<Integer> {
     private final SequenceGenerationService sequenceGenerationService;
 
     @CommandLine.Option(names = {"-sf", "--seqfile"}, description = "Path to sequence file")
-    private String sequenceFilePath;
+    private String sequenceFilePath = null;
 
     @CommandLine.Option(names = {"-s", "--sequence"}, description = "Manual sequence formula input")
-    private String sequenceFormula;
+    private String sequenceFormula = null;
 
     @CommandLine.Option(names = {"-n", "--number"}, description = "Sequence number")
-    private Integer sequenceNumber;
+    private Integer sequenceNumber = null;
 
     @Override
     public Integer call() throws Exception {
