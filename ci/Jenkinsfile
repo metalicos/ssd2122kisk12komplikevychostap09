@@ -1,0 +1,45 @@
+properties([disableConcurrentBuilds()])
+pipeline {
+    agent any
+    triggers {
+        pollSCM('* * * * *')
+    }
+    environment {
+        IMAGE = ""
+        VERSION = ""
+    }
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        skipDefaultCheckout(true)
+        skipStagesAfterUnstable()
+        timestamps()
+    }
+    stages {
+        stage('Prepare') {
+            steps {
+                echo "=============================== STARTING PREPARE ====================================="
+                checkout scm
+                script {
+                    IMAGE = readMavenPom().getArtifactId().toLowerCase()
+                    VERSION = readMavenPom().getVersion().toLowerCase()
+                }
+                echo IMAGE
+                echo VERSION
+                echo "=============================== END PREPARE ====================================="
+            }
+        }
+        stage('Build And Execute --help') {
+            steps {
+                echo "=============================== STARTING BUILD ====================================="
+                withMaven(maven: 'maven-latest') {
+                    bat """
+                    mvn clean install
+                    cd target
+                    java -jar seq.jar --help
+                    """
+                }
+                echo "=============================== BUILD SUCCESSFUL ==================================="
+            }
+        }
+    }
+}
