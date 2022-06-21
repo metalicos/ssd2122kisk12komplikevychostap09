@@ -28,17 +28,25 @@ pipeline {
                 echo "=============================== END PREPARE ====================================="
             }
         }
-        stage('Build And Execute --help') {
+        stage('Build') {
             steps {
                 echo "=============================== STARTING BUILD ====================================="
                 withMaven(maven: 'maven-latest') {
-                    bat """
-                    mvn clean install
-                    cd target
-                    java -jar seq.jar --help
-                    """
+                    bat " mvn clean install"
                 }
                 echo "=============================== BUILD SUCCESSFUL ==================================="
+            }
+        }
+        stage('Execute') {
+            steps {
+                echo "=============================== STARTING EXECUTE ====================================="
+                script {
+                    bat """
+                    cd target
+                    java -jar seq.jar --sequence="(4*x*x*x)+((3/4)*x*x)+(2*x)-11" --number=44
+                    """
+                }
+                echo "=============================== FINISH ==================================="
             }
         }
     }
